@@ -187,16 +187,16 @@ public class DbUtils {
 			File file = new File(Constants.FILE_DB_CONFIG);
 			
 			is = new FileInputStream(file);
-			reader = new BufferedReader(new InputStreamReader(is,"UTF-8"));
+			reader = new BufferedReader(new InputStreamReader(is, Constants.CHARSET));
 			
 			String line;
 			while ((line = reader.readLine()) != null) {
-				line = line.trim();
-				if (line.length() <= 0){
+				line = StringUtils.trim(line);
+				if (StringUtils.isBlank(line)) {
 					continue;
 				}
-				
-				if (line.startsWith("[") && line.endsWith("]")) {
+
+                if (line.startsWith("[") && line.endsWith("]")) {
 					itemsMap = new HashMap<String, String>();
 					String dbName = line.substring(1, line.length() - 1);
 					dbConfigMap.put(dbName, itemsMap);
@@ -245,14 +245,14 @@ public class DbUtils {
 			
 			// 存在配置文件
 			is = new FileInputStream(file);
-			reader = new BufferedReader(new InputStreamReader(is,"UTF-8"));
+			reader = new BufferedReader(new InputStreamReader(is, Constants.CHARSET));
 			
 			String line;
 			while ((line = reader.readLine()) != null) {
-				line = line.trim();
-				if (line.length() <= 0){
-					continue;
-				}
+                line = StringUtils.trim(line);
+                if (StringUtils.isBlank(line)) {
+                    continue;
+                }
 				
 				int index = line.indexOf("=");
 				if (index != -1) {
